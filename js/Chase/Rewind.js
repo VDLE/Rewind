@@ -6,12 +6,9 @@ var pausePlayStop = function(stop) {
 	var d = document.getElementById("pausePlayStop");
 	if (stop) {
 		MIDI.Player.stop();
-		d.src = "images/play.png";
 	} else if (MIDI.Player.playing) {
-		d.src = "images/play.png";
 		MIDI.Player.pause(true);
 	} else {
-		d.src = "images/pause.png";
 		MIDI.Player.resume();
 	}
 };
@@ -47,7 +44,7 @@ eventjs.add(window, "load", function(event) {
 			/// this sets up the MIDI.Player and gets things going...
 			player = MIDI.Player;
 			player.timeWarp = 1; // speed the song is played back
-			player.loadFile("ff10.mid", player.start);
+			player.loadFile("ff10.mid");
 
 			/// control the piano keys colors
 			var colorMap = MIDI.Synesthesia.map();
@@ -72,6 +69,7 @@ eventjs.add(window, "load", function(event) {
 	});
 });
 
+var toggle = 0;
 var MIDIPlayerPercentage = function(player) {
 	// update the timestamp
 	var time1 = document.getElementById("time1");
@@ -109,6 +107,23 @@ var MIDIPlayerPercentage = function(player) {
 		// display the information to the user
 		timeCursor.style.width = (percent * 100) + "%";
 		time1.innerHTML = timeFormatting(now);
-		time2.innerHTML = "-" + timeFormatting(end - now);
+		time2.innerHTML = timeFormatting(end);
+		$(".timer").html("");
+		if(toggle == 1) $(".timer").html(timeFormatting(end - now));
 	});
 };
+
+$(document).ready(function() {
+	var icon = $('.play');
+	var unplayed = 0;
+	
+	icon.click(function() {
+	 if(unplayed == 0){
+		 unplayed = 1;
+		 MIDI.Player.start();
+	 }
+	 toggle = (toggle + 1) %2;
+	 $(this).toggleClass('play', 10).toggleClass('pause', 10);
+	});
+  
+});
