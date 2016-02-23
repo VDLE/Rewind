@@ -382,3 +382,14 @@ body {
 	position: relative;	
 	top: 5px;
 }
+
+@keyframes pulse_animation {
+	100% { transform: scale(1.05); }
+}
+
+.pulse {
+	animation-name: pulse_animation;
+	animation-duration: 500ms;
+	transform-origin:70% 70%;
+	animation-timing-function: linear;
+}

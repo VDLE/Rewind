@@ -12,6 +12,7 @@ var pausePlayStop = function(stop) {
 		MIDI.Player.resume();
 	}
 };
+
 eventjs.add(window, "load", function(event) {
 	var link = document.createElement("link");
 	link.href = "//fonts.googleapis.com/css?family=Oswald";
@@ -53,12 +54,19 @@ eventjs.add(window, "load", function(event) {
 				var d = colorElements[pianoKey];
 				if (d) {
 					if (data.message === 144) {
+						$("#pausePlayStop").addClass("pulse");
 						var map = colorMap[data.note - 27];
 						if (map) d.style.background = map.hex;
 						d.style.color = "#fff";
+						
 					} else {
+						var elm = document.getElementById("pausePlayStop");
+						var newone = elm.cloneNode(true);
+						elm.parentNode.replaceChild(newone, elm);
 						d.style.background = "";
 						d.style.color = "";
+						var content = d.innerHTML;
+						$("div:contains("+content+")").clone().css({"left":"2000px"}).animate({"left":"0px"}, "slow");
 					}
 				}
 			});
