@@ -393,3 +393,25 @@ body {
 	transform-origin:70% 70%;
 	animation-timing-function: linear;
 }
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes shift-right {
+    right: 0%;
+}
+
+@keyframes shift-right {
+    right: 0%;
+}
+
+#color2{
+	width:100%;
+}
+
+.note{
+	padding: 1px 0 1px 5px; font-family: arial; font-size: 9px; line-height: 9px; color: #aaa; width: 30px; height: 9px;
+	position: fixed;
+    -webkit-animation: shift-right; /* Chrome, Safari, Opera */
+    animation: shift-right;
+	background-color: #FFF !important;
+	z-index:7;
+}

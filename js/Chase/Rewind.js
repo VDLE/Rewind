@@ -12,7 +12,7 @@ var pausePlayStop = function(stop) {
 		MIDI.Player.resume();
 	}
 };
-
+var unique = 0;
 eventjs.add(window, "load", function(event) {
 	var link = document.createElement("link");
 	link.href = "//fonts.googleapis.com/css?family=Oswald";
@@ -30,6 +30,7 @@ eventjs.add(window, "load", function(event) {
 	var colorElements = [];
 	for (var n = 0; n < 88; n++) {
 		var d = document.createElement("div");
+		d.id = n;
 		d.innerHTML = MIDI.noteToKey[n + 21];
 		colorElements.push(d);
 		colors.appendChild(d);
@@ -60,13 +61,26 @@ eventjs.add(window, "load", function(event) {
 						d.style.color = "#fff";
 						
 					} else {
+						unique += 1;
+						var finished = $(".note");
+						var width = $(window).width()+"px";
+						if(finished == width){
+							console.log($(this).html());							
+						}
+						
 						var elm = document.getElementById("pausePlayStop");
 						var newone = elm.cloneNode(true);
 						elm.parentNode.replaceChild(newone, elm);
 						d.style.background = "";
 						d.style.color = "";
-						var content = d.innerHTML;
-						$("div:contains("+content+")").clone().css({"left":"2000px"}).animate({"left":"0px"}, "slow");
+						var offset = $('#'+d.id).offset();
+						var $div = $("<div>", {id: "note"+unique, class: "note"});
+						$div.css("top", offset.top);
+						var left = $div.offset().left;
+						$("#color2").append($div);
+						var left = $div.offset().left;
+						$div.css({left:left}).animate({"left":"100%"}, 5000);
+						
 					}
 				}
 			});
@@ -118,6 +132,8 @@ var MIDIPlayerPercentage = function(player) {
 		time2.innerHTML = timeFormatting(end);
 		$(".timer").html("");
 		if(toggle == 1) $(".timer").html(timeFormatting(end - now));
+		//console.log(now);
+		//console.log(end);
 	});
 };
 
