@@ -13,6 +13,7 @@ var pausePlayStop = function(stop) {
 	}
 };
 var unique = 0;
+var rolls = [];
 eventjs.add(window, "load", function(event) {
 	var link = document.createElement("link");
 	link.href = "//fonts.googleapis.com/css?family=Oswald";
@@ -61,31 +62,32 @@ eventjs.add(window, "load", function(event) {
 						d.style.color = "#fff";
 						
 					} else {
-						unique += 1;
-						var finished = $(".note");
-						var width = $(window).width()+"px";
-						if(finished == width){
-							console.log($(this).html());							
-						}
+
+						// Bounce
+						//var elm = document.getElementById("pausePlayStop");
+						//var newone = elm.cloneNode(true);
+						//elm.parentNode.replaceChild(newone, elm);
 						
-						var elm = document.getElementById("pausePlayStop");
-						var newone = elm.cloneNode(true);
-						elm.parentNode.replaceChild(newone, elm);
+						// Reset Color
 						d.style.background = "";
 						d.style.color = "";
+						
+						// Piano Roll
+						var map = colorMap[data.note - 27];
 						var offset = $('#'+d.id).offset();
-						var $div = $("<div>", {id: "note"+unique, class: "note"});
+						var $div = $("<div>", {class: "note"});
 						$div.css("top", offset.top);
+						$div.css("background-color", map.hex);
 						var left = $div.offset().left;
 						$("#color2").append($div);
-						var left = $div.offset().left;
-						$div.css({left:left}).animate({"left":"100%"}, 5000);
+						$div.css({left:left}).animate({
+							left:"100%", 
+							opacity:"show",
+						}, 5000).promise().done(function(){$div.remove();});
 						
 					}
 				}
 			});
-			///
-			//ColorSphereBackground();
 			MIDIPlayerPercentage(player);
 		}
 	});
@@ -122,18 +124,13 @@ var MIDIPlayerPercentage = function(player) {
 		var percent = data.now / data.end;
 		var now = data.now >> 0; // where we are now
 		var end = data.end >> 0; // end of song
-		if (now === end) { // go to next song
-			var id = ++songid % song.length;
-			player.loadFile("ff10.mid", player.start); // load MIDI
-		}
+
 		// display the information to the user
 		timeCursor.style.width = (percent * 100) + "%";
 		time1.innerHTML = timeFormatting(now);
 		time2.innerHTML = timeFormatting(end);
 		$(".timer").html("");
 		if(toggle == 1) $(".timer").html(timeFormatting(end - now));
-		//console.log(now);
-		//console.log(end);
 	});
 };
 
