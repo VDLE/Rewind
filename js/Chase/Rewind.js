@@ -1,6 +1,7 @@
 if (typeof (console) === "undefined") var console = {
 	log: function() {}
 };
+var on = 0;
 // Toggle between Pause and Play modes.
 var pausePlayStop = function(stop) {
 	var d = document.getElementById("pausePlayStop");
@@ -8,12 +9,14 @@ var pausePlayStop = function(stop) {
 		MIDI.Player.stop();
 	} else if (MIDI.Player.playing) {
 		MIDI.Player.pause(true);
+		on = 1;
 	} else {
 		MIDI.Player.resume();
+		on = 0;
 	}
 };
 var unique = 0;
-var rolls = [];
+var music;
 eventjs.add(window, "load", function(event) {
 	var link = document.createElement("link");
 	link.href = "//fonts.googleapis.com/css?family=Oswald";
@@ -29,6 +32,7 @@ eventjs.add(window, "load", function(event) {
 	/// load up the piano keys
 	var colors = document.getElementById("colors");
 	var colorElements = [];
+	var dtimes = [];
 	for (var n = 0; n < 88; n++) {
 		var d = document.createElement("div");
 		d.id = n;
@@ -44,23 +48,89 @@ eventjs.add(window, "load", function(event) {
 			MIDI.loader.setValue(progress * 100);
 		},
 		onsuccess: function() {
-			/// this sets up the MIDI.Player and gets things going...
-			player = MIDI.Player;
-			player.timeWarp = 1; // speed the song is played back
-			player.loadFile("ff10.mid");
 
-			/// control the piano keys colors
+			// Sets up the MIDI.Player
+			player = MIDI.Player;
+			player.timeWarp = 1; 
+			player.loadFile("chocobo.mid", function(){
+
+				// Set up roll
+				music = player.data;
+				var time = 0;
+				var notemap = new Array();
+				for (var n = 0; n < music.length; n ++) 
+				{
+					var event = music[n][0].event;
+					
+					time = time + music[n][1];
+					switch(event.subtype) {
+
+						case 'noteOn':
+							//console.log("noteOn");
+							//console.log(time/1000.0);
+							//console.log(event.noteNumber);
+							//console.log(event.velocity);
+							//console.log("=============");
+							notemap["" + event.channel + " event " + event.noteNumber] = time / 1000.0;
+							break;
+
+						case 'noteOff':
+							//console.log("noteOff");
+							//console.log(time/1000.0);
+							//console.log(event.noteNumber);
+							//console.log(event.velocity);
+							//console.log("=============");
+							if ( ("" + event.channel + " event " + event.noteNumber) in notemap)
+							{
+								var dtime = time/1000.0 - notemap["" + event.channel + " event " + event.noteNumber] ;
+								//console.log(dtime);
+								dtimes.push(dtime);
+							}
+							break;
+					}
+
+				}
+				console.log(dtimes);
+			});
+
+			// Control the piano keys colors
 			var colorMap = MIDI.Synesthesia.map();
 			player.addListener(function(data) {
+
+				// Set up Piano Keys
 				var pianoKey = data.note - 21;
 				var d = colorElements[pianoKey];
+
+				// Create Piano Key Div
+				var map = colorMap[data.note - 27];
+				var offset = $('#'+d.id).offset();
+				var $div = $("<div>", {class: "note"});
+				$div.css("top", offset.top);
+				$div.css("background-color", map.hex);
+				//var left = $div.offset().left;
+
+
 				if (d) {
 					if (data.message === 144) {
-						$("#pausePlayStop").addClass("pulse");
-						var map = colorMap[data.note - 27];
+						//$("#pausePlayStop").addClass("pulse");
 						if (map) d.style.background = map.hex;
 						d.style.color = "#fff";
-						
+						//console.log(dtimes.shift());
+
+						// Piano Roll
+						$("#color2").append($div);
+						var width = $div.css("width").slice(0,-2);
+						var dtime = dtimes.shift();
+						console.log(dtime / player.end );
+						$div.css("width", $(window).width() * dtime / player.end * 10 + "px" ) ;//width * dtimes.shift() + "px");
+						$div.css("left", -($(window).width() * dtime / player.end * 10 - 35) + "px");
+						$div.animate({
+							left:"100%", 
+							opacity:"show",
+						},  ($(window).width() + ($(window).width() * dtime / player.end * 10 - 35) ) / .5,"linear")
+						.promise().done(function(){
+							$div.remove();
+						});
 					} else {
 
 						// Bounce
@@ -72,22 +142,12 @@ eventjs.add(window, "load", function(event) {
 						d.style.background = "";
 						d.style.color = "";
 						
-						// Piano Roll
-						var map = colorMap[data.note - 27];
-						var offset = $('#'+d.id).offset();
-						var $div = $("<div>", {class: "note"});
-						$div.css("top", offset.top);
-						$div.css("background-color", map.hex);
-						var left = $div.offset().left;
-						$("#color2").append($div);
-						$div.css({left:left}).animate({
-							left:"100%", 
-							opacity:"show",
-						}, 5000).promise().done(function(){$div.remove();});
-						
+
 					}
 				}
 			});
+
+			// Progress Bar
 			MIDIPlayerPercentage(player);
 		}
 	});
@@ -124,11 +184,13 @@ var MIDIPlayerPercentage = function(player) {
 		var percent = data.now / data.end;
 		var now = data.now >> 0; // where we are now
 		var end = data.end >> 0; // end of song
+		var events = data.events;
 
 		// display the information to the user
 		timeCursor.style.width = (percent * 100) + "%";
 		time1.innerHTML = timeFormatting(now);
 		time2.innerHTML = timeFormatting(end);
+		player.end = end;
 		$(".timer").html("");
 		if(toggle == 1) $(".timer").html(timeFormatting(end - now));
 	});
