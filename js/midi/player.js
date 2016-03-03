@@ -111,9 +111,10 @@ midi.loadMidiFile = function(onsuccess, onprogress, onerror) {
 		midi.replayer = new Replayer(MidiFile(midi.currentData), midi.timeWarp, null, midi.BPM);
 		midi.data = midi.replayer.getData();
 		midi.endTime = getLength();
+		console.log(midi.getFileInstruments());
 		///
 		MIDI.loadPlugin({
- 			instruments: [1,2],
+ 			instruments: "trumpet",
 			onsuccess: onsuccess,
 			onprogress: onprogress,
 			onerror: onerror

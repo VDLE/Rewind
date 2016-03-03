@@ -276,6 +276,7 @@
 				///
 				var synth = root.GM.byName[instrument];
 				var instrumentId = synth.number;
+				console.log("synth: "+synth+" number: "+instrumentId);
 				///
 				bufferPending[instrumentId] = 0;
 				///
