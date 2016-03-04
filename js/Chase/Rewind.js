@@ -53,7 +53,7 @@ eventjs.add(window, "load", function(event) {
 			player = MIDI.Player;
 			player.timeWarp = 1; 
 			player.BPM = 140;
-			player.loadFile("frog.mid", function(){
+			player.loadFile("dearly.mid", function(){
 
 				// Set up roll
 				music = player.data;
