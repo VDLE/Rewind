@@ -19,12 +19,14 @@ midi.playing = false;
 midi.timeWarp = 1;
 midi.startDelay = 0;
 midi.BPM = 120;
-
+midi.NoteMap = {};
 midi.start =
 midi.resume = function(onsuccess) {
     if (midi.currentTime < -1) {
     	midi.currentTime = -1;
     }
+	//midi.NoteMap = {};
+	//console.log("RESET");
     startAudio(midi.currentTime, null, onsuccess);
 };
 
@@ -38,6 +40,7 @@ midi.stop = function() {
 	stopAudio();
 	midi.restart = 0;
 	midi.currentTime = 0;
+	midi.NoteMap = {};
 };
 
 midi.addListener = function(onsuccess) {
@@ -160,6 +163,7 @@ midi.loadFile = function(file, onsuccess, onprogress, onerror) {
 midi.getFileInstruments = function() {
 	var instruments = {};
 	var programs = {};
+	
 	for (var n = 0; n < midi.data.length; n ++) {
 		var event = midi.data[n][0].event;
 		if (event.type !== 'channel') {
@@ -172,7 +176,7 @@ midi.getFileInstruments = function() {
 				break;
 			case 'programChange':
 				programs[channel] = event.programNumber;
-				MIDI.programChange(channel, event.programNumber,0);
+				//MIDI.programChange(channel, event.programNumber,0);
 				break;
 			case 'noteOn':
 				var program = programs[channel];
@@ -276,6 +280,7 @@ var startAudio = function(currentTime, fromCache, onsuccess) {
 	var ctx = getContext();
 	var length = data.length;
 	//
+
 	queuedTime = 0.5;
 	///
 	var interval = eventQueue[0] && eventQueue[0].interval || 0;
@@ -289,17 +294,23 @@ var startAudio = function(currentTime, fromCache, onsuccess) {
 	///
 	startTime = ctx.currentTime;
 	///
+	
 	for (var n = 0; n < length && messages < 100; n++) {
 		var obj = data[n];
-		if ((queuedTime += obj[1]) <= currentTime) {
+		var event = obj[0].event;
+		//console.log(midi.NoteMap[n]);
+		if ((queuedTime += obj[1]) <= currentTime && midi.NoteMap[n] ) {
+			//console.log("QUEUE TIME: " + queuedTime);
 			offset = queuedTime;
 			continue;
 		}
+
 		///
 		currentTime = queuedTime - offset;
 		///
-		var event = obj[0].event;
+		
 		if (event.type !== 'channel') {
+			midi.NoteMap[n] = true;
 			continue;
 		}
 		///
@@ -341,6 +352,7 @@ var startAudio = function(currentTime, fromCache, onsuccess) {
 			default:
 				break;
 		}
+		midi.NoteMap[n] = true;
 	}
 	///
 	onsuccess && onsuccess(eventQueue);
