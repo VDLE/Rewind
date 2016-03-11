@@ -16,7 +16,9 @@ var pausePlayStop = function(stop) {
 	}
 };
 var unique = 0;
+var current = "frog.mid";
 var music;
+
 eventjs.add(window, "load", function(event) {
 	var link = document.createElement("link");
 	link.href = "//fonts.googleapis.com/css?family=Oswald";
@@ -53,7 +55,7 @@ eventjs.add(window, "load", function(event) {
 			player = MIDI.Player;
 			player.timeWarp = 1; 
 			player.BPM = false;
-			player.loadFile("frog.mid", function(){
+			player.loadFile(current, function(){
 
 				// Set up roll
 				music = player.data;
@@ -188,12 +190,24 @@ $(document).ready(function() {
 	var unplayed = 0;
 	
 	icon.click(function() {
-	 if(unplayed == 0){
-		 unplayed = 1;
-		 MIDI.Player.start();
-	 }
-	 toggle = (toggle + 1) %2;
-	 $(this).toggleClass('play', 10).toggleClass('pause', 10);
+		if(unplayed == 0){
+			unplayed = 1;
+			MIDI.Player.start();
+		}
+		toggle = (toggle + 1) %2;
+		$(this).toggleClass('play', 10).toggleClass('pause', 10);
 	});
+	
+	$('#file').change(function() {
+		if($(".main-btn").hasClass("pause")){
+			toggle = (toggle + 1) %2;
+			$(".main-btn").toggleClass('play', 10).toggleClass('pause', 10);
+		}
+		
+		var temp = $(this).val().replace(/C:\\fakepath\\/i, '');
+		player.loadFile(temp);
+	});
+	
+	
   
 });

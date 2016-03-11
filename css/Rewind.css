@@ -10,7 +10,7 @@ menu {
   text-align: center;
   position: relative;
 }
-menu button {
+menu button{
   position: relative;
   display: inline-block;
   padding: .6em;
@@ -343,7 +343,7 @@ The buttons mixin that defines the buttons styles, the @size must be defined to 
 Other Styles
 */
 body {
-  background: #c1c1c1;
+  background: #f3f3f3;
   height:100%;
 }
 
@@ -414,4 +414,27 @@ body {
     animation: shift-right;
 	z-index:2 !important;
   visibility: "visible" !important;
+}
+
+.submenu{
+	font-family: arial;
+	margin-left: 5%;
+	margin-top:1%;
+	font-size:90%;
+}
+.rewind-title{
+	color:#FF0000;
+}
+.rewind-title:hover{
+	color:#FF0000;
+}
+.title{
+	z-index:9;
+	margin-top:5%;
+	margin-bottom:0%;
+	font-family: arial;
+	font-size:350%;
+	font-weight:bold;
+	color:#89cff0;
+	text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
