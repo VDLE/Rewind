@@ -100,6 +100,7 @@ eventjs.add(window, "load", function(event) {
 				var offset = $('#'+d.id).offset();
 				var $div = $("<div>", {class: "note"});
 				$div.css("top", offset.top);
+				$div.css("left", "100%");
 				$div.css("background-color", map.hex);
 				//var left = $div.offset().left;
 
@@ -116,9 +117,9 @@ eventjs.add(window, "load", function(event) {
 
 						var dtime = dtimes[data.id];
 						$div.css("width", $(window).width() * dtime / player.end * 10 + "px" ) ;//width * dtimes.shift() + "px");
-						$div.css("left", -($(window).width() * dtime / player.end * 10 - 35) + "px");
+						$div.css("left", ($(window).width() * dtime / player.end * 10 + 35 + $(window).width() ) + "px");
 						$div.animate({
-							left:"100%", 
+							left:"0%", 
 							opacity:"show",
 						},  ($(window).width() + ($(window).width() * dtime / player.end * 10 - 35) ) / .5,"linear")
 						.promise().done(function(){
