@@ -207,7 +207,8 @@ var scheduleTracking = function(channel, note, currentTime, offset, message, vel
 			now: currentTime,
 			end: midi.endTime,
 			message: message,
-			velocity: velocity
+			velocity: velocity,
+			id: time
 		};
 		//
 		if (message === 128) {
@@ -335,7 +336,7 @@ var startAudio = function(currentTime, fromCache, onsuccess) {
 				    event: event,
 				    time: queueTime,
 				    source: MIDI.noteOn(channelId, event.noteNumber, event.velocity, delay),
-				    interval: scheduleTracking(channelId, note, queuedTime + midi.startDelay, offset - foffset, 144, event.velocity)
+				    interval: scheduleTracking(channelId, note, queuedTime + midi.startDelay, offset - foffset, 144, event.velocity,n)
 				});
 				messages++;
 				break;
@@ -346,7 +347,7 @@ var startAudio = function(currentTime, fromCache, onsuccess) {
 				    event: event,
 				    time: queueTime,
 				    source: MIDI.noteOff(channelId, event.noteNumber, delay),
-				    interval: scheduleTracking(channelId, note, queuedTime, offset - foffset, 128, 0)
+				    interval: scheduleTracking(channelId, note, queuedTime, offset - foffset, 128, 0,n)
 				});
 				break;
 			default:
@@ -383,7 +384,8 @@ var stopAudio = function() {
 				now: o.now,
 				end: o.end,
 				message: 128,
-				velocity: o.velocity
+				velocity: o.velocity,
+				id: o.id
 			});
 		}
 	}

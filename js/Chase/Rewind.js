@@ -34,8 +34,8 @@ eventjs.add(window, "load", function(event) {
 	/// load up the piano keys
 	var colors = document.getElementById("colors");
 	var colorElements = [];
-	var dtimes = [];
-	for (var n = 0; n < 88; n++) {
+	var dtimes = {};
+	for (var n = 87; n >= 0; n--) {
 		var d = document.createElement("div");
 		d.id = n;
 		d.innerHTML = MIDI.noteToKey[n + 21];
@@ -64,24 +64,27 @@ eventjs.add(window, "load", function(event) {
 				for (var n = 0; n < music.length; n ++) 
 				{
 					var event = music[n][0].event;
-					
+					music[n][0].id = n;
 					time = time + music[n][1];
 					switch(event.subtype) {
 
 						case 'noteOn':
-							notemap["" + event.channel + " event " + event.noteNumber] = time / 1000.0;
+							notemap["" + event.channel + " event " + event.noteNumber] = {time: time / 1000.0, id: n};
 							break;
 
 						case 'noteOff':
 							if ( ("" + event.channel + " event " + event.noteNumber) in notemap)
 							{
-								var dtime = time/1000.0 - notemap["" + event.channel + " event " + event.noteNumber] ;
-								dtimes.push(dtime);
+								// love the name
+								notemapnote = notemap["" + event.channel + " event " + event.noteNumber];
+								var dtime = time/1000.0 - notemapnote.time;
+								dtimes[notemapnote.id] = dtime;
 							}
 							break;
 					}
 
 				}
+
 			});
 
 			// Control the piano keys colors
@@ -110,7 +113,8 @@ eventjs.add(window, "load", function(event) {
 						// Piano Roll
 						$("#color2").append($div);
 						var width = $div.css("width").slice(0,-2);
-						var dtime = dtimes.shift();
+
+						var dtime = dtimes[data.id];
 						$div.css("width", $(window).width() * dtime / player.end * 10 + "px" ) ;//width * dtimes.shift() + "px");
 						$div.css("left", -($(window).width() * dtime / player.end * 10 - 35) + "px");
 						$div.animate({
