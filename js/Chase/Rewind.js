@@ -190,6 +190,29 @@ var MIDIPlayerPercentage = function(player) {
 	});
 };
 
+function uploadAudioFile(file){
+    var fd = new FormData();
+    fd.append("upload_file", file);
+	
+
+	
+	$.ajax({
+          type : "POST",
+          url : "http://rewind.cse.unr.edu:5000/convert",
+          data: fd,
+		  crossDomain: true,
+          contentType: 'application/json;charset=UTF-8',
+         success: function(result) {
+			 alert("SUCCESS");
+			 console.log(result);
+			 player.loadFile(result);
+          },
+		    processData: false,  // tell jQuery not to process the data
+  contentType: false   // tell jQuery not to set contentType
+		  
+      });
+}
+
 $(document).ready(function() {
 	var icon = $('.play');
 	var unplayed = 0;
@@ -210,7 +233,9 @@ $(document).ready(function() {
 		}
 		
 		var temp = $(this).val().replace(/C:\\fakepath\\/i, '');
-		player.loadFile(temp);
+		console.log($(this)[0].files[0]);
+		uploadAudioFile($(this)[0].files[0]);
+		//player.loadFile(temp);
 	});
 	
 	
