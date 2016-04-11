@@ -233,9 +233,9 @@ $(document).ready(function() {
 		}
 		
 		var temp = $(this).val().replace(/C:\\fakepath\\/i, '');
-		console.log($(this)[0].files[0]);
-		uploadAudioFile($(this)[0].files[0]);
-		//player.loadFile(temp);
+		//console.log($(this)[0].files[0]);
+		//uploadAudioFile($(this)[0].files[0]);
+		player.loadFile(temp);
 	});
 	
 	

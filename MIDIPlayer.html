@@ -47,12 +47,16 @@
 </head>
 
 <body>
-	<div style="position: fixed; top: 0; left: 0; z-index: 4; overflow: hidden;" id="colors"></div>
-	<div style="position: fixed; top: 0; left: 0; z-index: 4; overflow: hidden;" id="color2"></div>
-	<div style="text-align: center; position: absolute; top: -70px; left: -40px; opacity: 0.9" id="colors"></div>
+	<div id="colors"></div>
+	<div id="color2"></div>
+	<div id="main-menu">
+		<h1 class="rewind-title title">Rewind</h1>
+		<h1 class="rewind-subtitle title">the Music</h1>
+		<menu style="z-index: 6;">
+			<button id="pausePlayStop" class="play main-btn" onclick="pausePlayStop()"><p class="timer"></p></button>
+		</menu>
+	</div>
 	<menu style="z-index: 6;">
-		<h1 class="title"><a class="rewind-title">Rewind</a> the Music</h1>
-		<button id="pausePlayStop" class="play main-btn" onclick="pausePlayStop()"><p class="timer"></p></button><br>
 		<div class="player-container">
 			<div class="player">
 				<div class="time-controls">
