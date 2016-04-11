@@ -16,7 +16,8 @@ var pausePlayStop = function(stop) {
 	}
 };
 var unique = 0;
-var current = "frog.mid";
+var current = "static/music/frog.mid";
+var path = "static/music/"
 var music;
 
 eventjs.add(window, "load", function(event) {
@@ -45,7 +46,7 @@ eventjs.add(window, "load", function(event) {
 	///
 	MIDI.loader = new sketch.ui.Timer;
 	MIDI.loadPlugin({
-		soundfontUrl: "soundfont/",
+		soundfontUrl: "static/soundfont/",
 		onprogress: function(state, progress) {
 			MIDI.loader.setValue(progress * 100);
 		},
@@ -234,8 +235,8 @@ $(document).ready(function() {
 		
 		var temp = $(this).val().replace(/C:\\fakepath\\/i, '');
 		console.log($(this)[0].files[0]);
-		uploadAudioFile($(this)[0].files[0]);
-		//player.loadFile(temp);
+		//uploadAudioFile($(this)[0].files[0]);
+		player.loadFile(path+temp);
 	});
 	
 	
