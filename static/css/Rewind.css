@@ -6,25 +6,24 @@ menu {
   /* Fast-Forward */
   /* Rewind */
   /* Pause */
-  margin: 2em auto;
-  text-align: center;
   position: relative;
+}
+menu.bar{
+	text-align:center;
 }
 menu button{
   position: relative;
   display: inline-block;
-  padding: .6em;
-  background: linear-gradient(#fff, #ccc), #c9c5c9;
+  background: linear-gradient(#B22222, #B22222), #c9c5c9;
   border-radius: 10em;
   border: 0 solid #d0d0d0;
-  width: 20em;
-  height: 20em;
+  width: 10em;
+  height: 10em;
   margin-top:5%;
-  margin-right: 20px;
-  box-shadow: 0 1.2em 1.4em rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1.2em 1.4em rgba(137, 207, 240, 0.4);
 }
 menu button:hover {
-  background: linear-gradient(#f5f5f5, #b9b9b9), #c9c5c9;
+  background: linear-gradient(#89cff0, #89cff0), #c9c5c9;
 }
 menu button:before,
 menu button:after {
@@ -38,22 +37,22 @@ menu button:active {
 
 menu .play:before {
   z-index: 2;
-  top: 4.4em;
-  left: 7.2em;
+  top: 2.2em;
+  left: 3.6em;
   width: 0;
   height: 0;
-  border: 6em solid transparent;
-  border-left-color: rgba(100, 100, 100, 0.8);
-  border-left-width: 9em;
+  border: 3em solid transparent;
+  border-left-color: rgba(137, 207, 240, 0.8);
+  border-left-width: 4.5em;
 }
 menu .play:hover:before {
-  border-left-color: rgba(36, 36, 36, 0.8);
+  border-left-color: rgba(178, 34, 34, 0.8);
 }
 menu .stop:before {
-  top: 5.6em;
-  left: 5.6em;
-  width: 9.4em;
-  height: 9.4em;
+  top: 2.8em;
+  left: 2.8em;
+  width: 4.7em;
+  height: 4.7em;
   background: rgba(100, 100, 100, 0.8);
 }
 menu .stop:hover:before {
@@ -101,19 +100,19 @@ menu .rw:hover:before {
 }
 menu .pause:before,
 menu .pause:after {
-  height: 9.4em;
-  width: 3.8em;
-  left: 5.8em;
-  top: 5.6em;
+  height: 4.7em;
+  width: 1.9em;
+  left: 2.9em;
+  top: 2.8em;
   display: block;
   background-color: transparent;
 }
 menu .pause:after {
-  left: 10.8em;
+  left: 5.4em;
 }
 menu .pause:hover:before,
 menu .pause:hover:after {
-  background-color: rgba(36, 36, 36, 0.8);
+  background-color: rgba(178, 34, 34, 0.8);
 }
 
 menu.medium {
@@ -336,6 +335,11 @@ menu.small .pause:hover:before,
 menu.small .pause:hover:after {
   background-color: rgba(36, 36, 36, 0.8);
 }
+
+main-btn{
+	text-align:center;
+}
+
 /*
 The buttons mixin that defines the buttons styles, the @size must be defined to set the relative size
 */
@@ -348,9 +352,11 @@ body {
 }
 
 .timer{
-	font-size:600%;
+	font-size:350%;
 	color: #003366;
 	z-index:3;
+	margin-left:4%;
+	margin-top:5%;
 }
 .body-container{
 	height:100%;
@@ -424,17 +430,39 @@ body {
 }
 .rewind-title{
 	color:#FF0000;
+	margin-top:6%;
 }
-.rewind-title:hover{
-	color:#FF0000;
+.rewind-subtitle{
+	color:#89cff0;
+	margin-top:7%;
 }
 .title{
-	z-index:9;
-	margin-top:5%;
-	margin-bottom:0%;
+	margin-bottom:4%;
+	margin-right:3%;
 	font-family: arial;
-	font-size:350%;
+	font-size:250%;
 	font-weight:bold;
-	color:#89cff0;
 	text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+#colors{
+	position: fixed; top: 0; right: 0; z-index: 6; overflow: hidden;
+}
+
+#color2{
+	position: absolute; top: 0; right: 0; z-index: 6; overflow: hidden;
+}
+
+#main-menu{
+	position: fixed;	
+	top: 0; 
+	left: 0; 
+	z-index: 99; 
+	overflow: hidden;
+	min-width: 215px;
+	height:100%;
+	background: rgba(0,51,102,0.75);
+}
+hr{
+	margin-top:10%;
+	border-color:#003366;
 }

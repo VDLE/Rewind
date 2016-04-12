@@ -16,7 +16,7 @@ var pausePlayStop = function(stop) {
 	}
 };
 var unique = 0;
-var current = "static/music/frog.mid";
+var current = "static/music/naruto.mid";
 var path = "static/music/"
 var music;
 
@@ -234,7 +234,7 @@ $(document).ready(function() {
 		}
 		
 		var temp = $(this).val().replace(/C:\\fakepath\\/i, '');
-		console.log($(this)[0].files[0]);
+		//console.log($(this)[0].files[0]);
 		//uploadAudioFile($(this)[0].files[0]);
 		player.loadFile(path+temp);
 	});
