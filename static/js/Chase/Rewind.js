@@ -214,6 +214,7 @@ function uploadAudioFile(file){
       });
 }
 
+
 $(document).ready(function() {
 	var icon = $('.play');
 	var unplayed = 0;
@@ -233,12 +234,18 @@ $(document).ready(function() {
 			$(".main-btn").toggleClass('play', 10).toggleClass('pause', 10);
 		}
 		
+		
 		var temp = $(this).val().replace(/C:\\fakepath\\/i, '');
+		console.log(temp);
+		$("#file-text").val(temp);
 		//console.log($(this)[0].files[0]);
 		//uploadAudioFile($(this)[0].files[0]);
 		player.loadFile(path+temp);
 	});
 	
+//	$('.file-button').on('change', function() {
+//		$("#file-text").val(this.value);
+//	});
 	
   
 });
