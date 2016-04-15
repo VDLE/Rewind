@@ -346,10 +346,14 @@ The buttons mixin that defines the buttons styles, the @size must be defined to 
 /*
 Other Styles
 */
+html{
+}
 body {
   background: #f3f3f3;
   height:100%;
   vertical-align:bottom !important;
+  min-width:1000px; /* suppose you want minimun width of 1000px */
+  width: auto !important;  /* Firefox will set width as auto */
 }
 
 .timer{
@@ -463,6 +467,7 @@ body {
 	margin-right:1%;
 	height:100%;
 	background: rgba(0,51,102,0.95);
+	color: transparent;
 }
 hr{
 	margin-top:10%;
@@ -488,12 +493,14 @@ hr{
 	background-color: rgba(137, 207, 240,0.75);
 	font-family: 'Open Sans', sans-serif;
 	cursor: pointer;
+	font-size:80%;
+	font-weight:600;
 }
 
 .fileUpload:hover{
-	border-color: #003366;
-	color: #003366;
-	background-color: rgba(137, 207, 240,0.75);
+	border-color: #89cff0;
+	color: #89cff0;
+	background-color: rgba(0,51,102,0.75);
 }
 
 .fileUpload input#file {
@@ -510,6 +517,19 @@ hr{
     filter: alpha(opacity=0);
 }
 
+.fileUpload a {
+	position:absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-decoration: none; /* No underlines on the link */
+    z-index: 10; /* Places the link above everything else in the div */
+    background-color: #FFF; /* Fix to make div clickable in IE */
+    opacity: 0; /* Fix to make div clickable in IE */
+    filter: alpha(opacity=1); /* Fix to make div clickable in IE */
+}
+
 #file-text{
 	margin-top:2%;
 	padding-top:2%;
@@ -522,8 +542,28 @@ hr{
 }
 
 .player-custom{
-	position: inline-block;
-	bottom:100%;
+	width: auto;
 	margin-left:220px;
-	margin-right:40px;
+}
+
+.area{
+	position:relative;
+	width:100%;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.timezone{
+	width:50px;
+	height:20px;
+	background-color: rgba(137, 207, 240,0.75);
+	float:left;
+}
+#time1{
+	position:relative;
+	margin-left:20px;
+}
+#time2{
+	position:relative;
+	text-align:right;
+	margin-right:10px;
 }

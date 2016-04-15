@@ -12,7 +12,6 @@ div.player {
 	background-image: -ms-gradient(top, rgba(66, 66, 66, 1) 0%, rgba(22, 22, 22, 1) 100%);
 	background-image: -o-gradient(top, rgba(66, 66, 66, 1) 0%, rgba(22, 22, 22, 1) 100%);
 	background-image: linear-gradient(top, rgba(66, 66, 66, 1) 0%, rgba(22, 22, 22, 1) 100%);
-	padding: 15px 20px;
 	border: 1px solid #000;
 	box-shadow: 0 0 10px #fff;
 	-moz-box-shadow: 0 0 10px #fff;
@@ -24,9 +23,10 @@ div.player {
 	color: rgba(255, 255, 255, 0.8);
 	text-shadow: 1px 1px 2px #000;
 	-moz-text-shadow: 1px 1px 2px #000;
-	margin-bottom: 15px;
+	margin-bottom: 25px;
+	padding:5px;
 }
-div.player #capsule {
+#capsule {
 	border: 1px solid #000;
 	box-shadow: 0 0 10px #555;
 	-moz-box-shadow: 0 0 10px #555;
@@ -42,11 +42,12 @@ div.player #capsule {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	width: 90%;
+	width: 185px;
 	display: inline-block;
-	height: 30px;
+	height: 20px;
+	margin-top:5px;
 }
-div.player #capsule #cursor {
+#capsule #cursor {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -63,14 +64,14 @@ div.player #capsule #cursor {
 	display: inline-block;
 	height: 100%;
 }
-div.player span.time {
-	position: relative;
-	top: -9px;
+span.time {
 	width: 40px;
-	display: inline-block;
-	text-align: right;
+	color:#89cff0;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 80%;
 }
-div.player div.time-controls {
+
+div.time-controls {
 	width: 100%;
 }
 input[type="image"]:hover {
