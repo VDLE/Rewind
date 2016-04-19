@@ -567,3 +567,13 @@ hr{
 	text-align:right;
 	margin-right:10px;
 }
+.modal-header{
+	color: #003366;
+	font-size: 200%;
+	font-weight:600;
+	
+}
+.modal-background{
+	background-color: rgba(137, 207, 240,0.75);
+	font-family: 'Open Sans', sans-serif;
+}
