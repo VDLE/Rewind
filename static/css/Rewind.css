@@ -450,7 +450,7 @@ body {
 	text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 #colors{
-	position: fixed; top: 0; right: 0; z-index: 6; overflow: hidden;
+	position: fixed; top: 0; right: 0; z-index: 99; overflow: hidden;
 }
 
 #color2{
@@ -576,4 +576,10 @@ hr{
 .modal-background{
 	background-color: rgba(137, 207, 240,0.75);
 	font-family: 'Open Sans', sans-serif;
+}
+#roll{
+	position:fixed;
+	height: 100%;
+	left: 220px;
+	top:0px;
 }
