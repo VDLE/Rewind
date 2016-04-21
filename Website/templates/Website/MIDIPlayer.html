@@ -101,28 +101,86 @@
 		
 		<!-- Player Toggle Options -->
 		<div id="author" class="fileUpload btn btn-primary">
-			<span>About the Author</span>
+			<span>About the Authors</span>
+			<a href="#author-modal"></a>
 		</div>
 		
 		<!-- Download Options -->
 		<div id="download" class="fileUpload btn btn-primary">
 			<span>Download the Midi</span>
 		</div>
+
+		<!-- Acknowldegements Options -->
+		<div id="acknowledgements" class="fileUpload btn btn-primary">
+			<span>Acknowledgements</span>
+			<a href="#acknowledgement-modal"></a>
+		</div>
 	</div>
 	
+	<!-- The what modal  -->
 	<div class="remodal modal-background" data-remodal-id="what-modal">
 	  <button data-remodal-action="close" class="remodal-close"></button>
-	  <h2 class="modal-header">Remodal</h2>
-	  <p>
-		Responsive, lightweight, fast, synchronized with CSS animations, fully customizable modal window plugin with declarative configuration and hash tracking.
+	  <h2 class="modal-header">About Rewind</h2>
+	  <p align="justify">
+	  	Rewind was created as part for Chase Carthen in completion of a Master's in Computer Science with the aid of Vinh Le.
+		Rewind is a Automatic Music Transcription (AMT) system that converts your favorite audio files into a midi. Midi is commonly used by others as a highly portable format that can be shared amongst others easily. It is possible to get transcirptions or the notes of your favorite music. These notes can be turned into guitar tabs, sheet music, or simply replayed back by your favorite. This website has an in-built sythnesizer that you can use to play your transcriptions made by the system.
 	  </p>
 	  <br>
 	</div>
-	<div class="remodal modal-background" data-remodal-id="how-modal">
+
+	<!-- The how modal  -->
+	<div class="remodal modal-background" data-remodal-id="how-modal" style="overflow: scroll;">
 	  <button data-remodal-action="close" class="remodal-close"></button>
-	  <h2 class="modal-header">Remodal</h2>
+	  <h2 class="modal-header">How Rewind Does Magic</h2>
+	  <p align="justify">
+	  	Rewind is a tool that automatically converts a digital audio file (mp3,wav,au, and other formats) into a symbolic format such as a midi file. Rewind automatically turns your audio files into a spectrogram and then converts it too a piano roll.
+	  	<br>
+	  	<br>
+		Converting a <a href="https://en.wikipedia.org/wiki/Spectrogram">Spectrogram</a>:
+		<br>
+		<img src="{% static 'images/nottinghamspectrogram.png' %}" height="400" width="400" style = "display:block;margin-left:auto;margin-right:auto;">
+		<br>
+		<br>
+		To a <a href="https://en.wikipedia.org/wiki/Piano_roll">Piano Roll</a>:
+		<br>
+		<img src="{% static 'images/simplereels153.png' %}" height="400" width="400" style = "display:block;margin-left:auto;margin-right:auto;">
+		<br>
+		This transcription happens through the magical backend created for Rewind that utilzies Deep Learning.
+	  </p>
+	  <br>
+	</div>
+
+	<!-- The author modal  -->
+	<div class="remodal modal-background" data-remodal-id="author-modal">
+	  <button data-remodal-action="close" class="remodal-close"></button>
+	  <h2 class="modal-header">About the Authors</h2>
+	  <p align="center">
+	  	<img src="{% static 'images/Chase.jpg' %}" height="200" style = "display:block;margin-left:auto;margin-right:auto;" >
+	  	<br>
+	  	<b> Chase Carthen </b>
+	  	<br>
+	  	asdf
+	  	asdf
+	  	asdf
+	  	asdf
+	  	asdf
+	  	asdf
+	  	<br>
+
+	  	<br>
+	  	<img src="{% static 'images/Vinh.jpg' %}" height="200" style = "display:block;margin-left:auto;margin-right:auto;" >
+	  	<br>
+	  	<b>Vinh Le </b>
+	  	<br>
+	  </p>
+	  <br>
+	</div>
+
+	<!-- The acknowledgements modal  -->
+	<div class="remodal modal-background" data-remodal-id="acknowledgement-modal">
+	  <button data-remodal-action="close" class="remodal-close"></button>
+	  <h2 class="modal-header">Acknowledgements</h2>
 	  <p>
-		Responsive, lightweight, fast, synchronized with CSS animations, fully customizable modal window plugin with declarative configuration and hash tracking.
 	  </p>
 	  <br>
 	</div>
