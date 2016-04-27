@@ -109,6 +109,7 @@ eventjs.add(window, "load", function(event) {
 			player = MIDI.Player;
 			player.timeWarp = 1; 
 			player.BPM = false;
+			$("#dl").attr("href",current);
 			player.loadFile(current, function(){
 
 				setup();
@@ -198,7 +199,7 @@ var MIDIPlayerPercentage = function(player) {
 	});
 };
 
-function uploadAudioFile(file){
+function uploadAudioFile(file,filename){
     var fd = new FormData();
     fd.append("upload_file", file);
 	
@@ -211,9 +212,13 @@ function uploadAudioFile(file){
 		  crossDomain: true,
           contentType: 'application/json;charset=UTF-8',
          success: function(result) {
-			 alert("SUCCESS");
-			 console.log(result);
-			 player.loadFile(result,setup);
+			 //alert("SUCCESS");
+			 //console.log(result);
+			 // Loaded midi file
+			 current = result;
+			 player.loadFile(current,setup);
+			 //alert(file);
+			 $("#dl").attr("href",current).attr("download", filename+".mid");
           },
 		    processData: false,  // tell jQuery not to process the data
   contentType: false   // tell jQuery not to set contentType
@@ -247,8 +252,9 @@ $(document).ready(function() {
 		var temp = $(this).val().replace(/C:\\fakepath\\/i, '');
 		console.log(temp);
 		$("#file-text").val(temp);
-		//console.log($(this)[0].files[0]);
-		uploadAudioFile($(this)[0].files[0]);
+		
+		
+		uploadAudioFile($(this)[0].files[0],temp);
 		//player.loadFile(path+temp,function(){
 
 		//	setup();
