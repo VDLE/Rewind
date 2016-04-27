@@ -206,14 +206,14 @@ function uploadAudioFile(file){
 	
 	$.ajax({
           type : "POST",
-          url : "http://rewind.cse.unr.edu:5000/convert",
+          url : "http://localhost:5000/convert",
           data: fd,
 		  crossDomain: true,
           contentType: 'application/json;charset=UTF-8',
          success: function(result) {
 			 alert("SUCCESS");
 			 console.log(result);
-			 player.loadFile(result);
+			 player.loadFile(result,setup);
           },
 		    processData: false,  // tell jQuery not to process the data
   contentType: false   // tell jQuery not to set contentType
@@ -248,12 +248,12 @@ $(document).ready(function() {
 		console.log(temp);
 		$("#file-text").val(temp);
 		//console.log($(this)[0].files[0]);
-		//uploadAudioFile($(this)[0].files[0]);
-		player.loadFile(path+temp,function(){
+		uploadAudioFile($(this)[0].files[0]);
+		//player.loadFile(path+temp,function(){
 
-			setup();
+		//	setup();
 
-		});
+		//});
 	});
 	
 //	$('.file-button').on('change', function() {
